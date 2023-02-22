@@ -18,7 +18,9 @@ function weatherSearch(city) {
         document.getElementById("city-name").textContent = data.name;
         var today = dayjs().format('MM/DD/YYYY');
         document.getElementById("current-date").textContent = today
-        document.getElementById("temp").textContent = "Temp: " + data.main.temp + "F";
+        document.getElementById("temp").textContent = "Temp: " + data.main.temp + " \u00B0F";
+        document.getElementById("wind").textContent = "Wind: " + data.wind.speed + " MPH";
+        document.getElementById("humid").textContent = "Humidity: " + data.main.humidity + "%";
     })
 }
 
