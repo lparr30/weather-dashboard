@@ -8,6 +8,7 @@ searchHistory.append(savedCity);
 function performSearch () {
     var inputVal = document.getElementById("cityToSearch").value.trim();
     weatherSearch(inputVal)
+    forecastSearch(inputVal)
 }
 
 function weatherSearch(city) {
@@ -36,23 +37,48 @@ function forecastSearch() {
     futureWeatherSearch(userInput);
 }
 
-function futureWeatherSearch(lat,lon) {
-    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + APIkey;
+function futureWeatherSearch(cityName) {
+    // var queryURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + APIkey;
+    var queryURL = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${APIkey}&units=imperial`
+
     fetch(queryURL)
     .then(function(result) {
         return result.json()
     })
     .then(function(data) {
-        var today = dayjs().format('MM/DD/YYYY');
+        console.log(data)
+        var arrOfTimes = data.list; // array of 40 items
+        //attempt to normalize the data to just get noon items
+        var arrOfFilteredTimes = [];
+
+        for(i=0; i< arrOfTimes.length; i++) {
+            if(arrOfTimes[i].dt_txt.split(" ")[1] == "12:00:00") {
+                arrOfFilteredTimes.push(arrOfTimes[i])
+            }
+
+            // if(arrOfTimes[i].dt_txt.includes("12:00:00")) {
+            //     arrOfFilteredTimes.push(arrOfTimes[i])
+            // }
+        }
+
+        // var superFilter = arrOfTimes.filter(date => date.dt_txt.includes("12:00:00"))
+
+        console.log(arrOfFilteredTimes)
+
+        renderForecast(arrOfFilteredTimes)
+        // var today = dayjs().format('MM/DD/YYYY');
         // var oneDay = dayjs().add(dayjs.duration({'days':1}));
-        document.getElementById('one-day').textContent = oneDay;
+        // document.getElementById('one-day').textContent = oneDay;
         // var latitude = data.coord.lat;
         // var longitude = data.coord.lon;
-    })
-    
-
-    
+    })    
 }
 
-
-searchBtn.addEventListener('click', forecastSearch);
+function renderForecast(arr) {
+    for(i =0; i<arr.length; i++) {
+        document.getElementById("date-" + i).textContent = arr[i].dt_txt.split(" ")[0]
+        document.getElementById("temp-" + i).textContent = "Temp: " + arr[i].main.temp + " \u00B0F"
+        document.getElementById("wind-" + i).textContent = "Wind: " + arr[i].main.temp + " MPH"
+        document.getElementById("humid-" + i).textContent = "Humidity:" + arr[i].main.temp + "%"
+    }
+}
