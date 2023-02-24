@@ -63,7 +63,7 @@ function futureWeatherSearch(cityName) {
 
         // var superFilter = arrOfTimes.filter(date => date.dt_txt.includes("12:00:00"))
 
-        console.log(arrOfFilteredTimes)
+        // console.log(arrOfFilteredTimes)
 
         renderForecast(arrOfFilteredTimes)
         // var today = dayjs().format('MM/DD/YYYY');
@@ -76,7 +76,11 @@ function futureWeatherSearch(cityName) {
 
 function renderForecast(arr) {
     for(i =0; i<arr.length; i++) {
-        document.getElementById("date-" + i).textContent = arr[i].dt_txt.split(" ")[0]
+        var givenDate = arr[i].dt_txt.split(" ")[0]
+        // console.log(givenDate)
+        var properDate = givenDate.split('-');
+        console.log(properDate)
+        document.getElementById("date-" + i).textContent = properDate[1] + "/" + properDate[2] + "/" + properDate[0]
         document.getElementById("temp-" + i).textContent = "Temp: " + arr[i].main.temp + " \u00B0F"
         document.getElementById("wind-" + i).textContent = "Wind: " + arr[i].main.temp + " MPH"
         document.getElementById("humid-" + i).textContent = "Humidity:" + arr[i].main.temp + "%"
