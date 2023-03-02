@@ -5,6 +5,7 @@ var savedCity = localStorage.getItem('city');
 var searchHistory = document.getElementById('history');
 searchHistory.append(savedCity);
 
+
 function performSearch () {
     var inputVal = document.getElementById("cityToSearch").value.trim();
     weatherSearch(inputVal)
@@ -18,9 +19,16 @@ function weatherSearch(city) {
         return result.json()
     })
     .then(function (data) {
-        console.log(data);
-        console.log(data.main.temp);
-        document.getElementById("city-name").textContent = data.name;
+        // console.log(data);
+        // console.log(data.main.temp);
+        var weatherIcon = document.getElementById('weather-icon');
+        var dataIcon = data.weather[0].icon
+        weatherIcon.src = `http://openweathermap.org/img/wn/${dataIcon}@2x.png`
+
+        var cityName = document.getElementById("city-name");
+        cityName.textContent = data.name;
+        cityName.append(weatherIcon.src);
+
         var today = dayjs().format('MM/DD/YYYY');
         document.getElementById("current-date").textContent = today
         document.getElementById("temp").textContent = "Temp: " + data.main.temp + " \u00B0F";
@@ -82,7 +90,7 @@ function renderForecast(arr) {
         console.log(properDate)
         document.getElementById("date-" + i).textContent = properDate[1] + "/" + properDate[2] + "/" + properDate[0]
         document.getElementById("temp-" + i).textContent = "Temp: " + arr[i].main.temp + " \u00B0F"
-        document.getElementById("wind-" + i).textContent = "Wind: " + arr[i].main.temp + " MPH"
-        document.getElementById("humid-" + i).textContent = "Humidity:" + arr[i].main.temp + "%"
+        document.getElementById("wind-" + i).textContent = "Wind: " + arr[i].wind.speed + " MPH"
+        document.getElementById("humid-" + i).textContent = "Humidity:" + arr[i].main.humidity + "%"
     }
 }

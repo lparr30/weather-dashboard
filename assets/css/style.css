@@ -9,4 +9,11 @@
 
 .forecast {
     height: 130px;
+    background-color: navy;
+    color: rgb(183, 183, 183);
+}
+
+.col-2 {
+    width: 19.7%;
+    height: 44%;
 }
