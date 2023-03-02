@@ -23,7 +23,9 @@ function weatherSearch(city) {
         // console.log(data.main.temp);
         var weatherIcon = document.getElementById('weather-icon');
         var dataIcon = data.weather[0].icon
-        weatherIcon.src = `http://openweathermap.org/img/wn/${dataIcon}@2x.png`
+        weatherIcon.src = `https://openweathermap.org/img/wn/${dataIcon}@2x.png`
+        // weatherIcon.src = `https://openweathermap.org/img/wn/10d@2x.png`
+        
 
         var cityName = document.getElementById("city-name");
         cityName.textContent = data.name;
