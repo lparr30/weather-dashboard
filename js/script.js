@@ -22,7 +22,7 @@ function performSearch () {
 }
 
 function weatherSearch(city) {
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + APIkey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + APIkey;
     fetch(queryURL)
     .then(function(result) {
         return result.json()
