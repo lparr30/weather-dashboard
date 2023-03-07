@@ -57,7 +57,7 @@ function forecastSearch() {
 
 function futureWeatherSearch(cityName) {
     // var queryURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + APIkey;
-    var queryURL = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${APIkey}&units=imperial`
+    var queryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${APIkey}&units=imperial`
 
     fetch(queryURL)
     .then(function(result) {
